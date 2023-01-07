@@ -194,9 +194,7 @@ final class entity
 
 	public static function getbasefolder()
 	{
-		$result = functions::getsitedatafolder() . "/datasink/entity/";
-		echo "datasinkentity_getbasefolder:{$result}";
-		die();
+		$result = functions::getsitedatafolder() . DIRECTORY_SEPARATOR . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
 		return $result;
 	}
 
@@ -222,7 +220,9 @@ final class entity
 		$hash = md5($identity);
 		
 		$basefolder = entity::getbasefolder();
-		$rawdatafile_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$hash}/{$hash}_data.raw";
+		$sep = DIRECTORY_SEPARATOR;
+		$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
+
 		$data_string = file_get_contents($rawdatafile_path);
 		
 		if ($args["output"] == "rawstring")
@@ -259,8 +259,8 @@ final class entity
 		$identityfield = $entitymeta["identityfield"];
 		
 		$basefolder = entity::getbasefolder();
-
-		$hashtoidentity_index_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$datasink_entitytype}_hashtoidentity_index.json";
+		$sep = DIRECTORY_SEPARATOR;
+		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
 		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
 		$hashtoidentity_index = json_decode($hashtoidentity_index_string, true);
 
@@ -268,7 +268,8 @@ final class entity
 		{
 			if ($datasink_include_meta == true)
 			{
-				$rawdatafile_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$hash}/{$hash}_data.raw";
+				$sep = DIRECTORY_SEPARATOR;
+				$rawdatafile_path = "{$basefolder}{$sep}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
 				$data_string = file_get_contents($rawdatafile_path);
 				$data = json_decode($data_string, true);
 				$result[$identityfield_value] = $data;
@@ -315,8 +316,8 @@ final class entity
 		$identityfield = $entitymeta["identityfield"];
 		
 		$basefolder = entity::getbasefolder();
-
-		$hashtoidentity_index_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$datasink_entitytype}_hashtoidentity_index.json";
+		$sep = DIRECTORY_SEPARATOR;
+		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
 		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
 		$hashtoidentity_index = json_decode($hashtoidentity_index_string, true);
 		
@@ -337,7 +338,8 @@ final class entity
 			}
 			else if ($query_lower != "")
 			{
-				$rawdatafile_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$hash}/{$hash}_data.raw";
+				$sep = DIRECTORY_SEPARATOR;
+				$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
 				$data_string = file_get_contents($rawdatafile_path);
 				$data_string_lower = strtolower($data_string);
 				
@@ -444,8 +446,8 @@ final class entity
 		
 		//
 		$action = false;
-
-		$hashtoidentity_index_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$datasink_entitytype}_hashtoidentity_index.json";
+		$sep = DIRECTORY_SEPARATOR;
+		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
 		filesystem::createcontainingfolderforfilepathifnotexists($hashtoidentity_index_path);
 		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
 		$hashtoidentity_index = json_decode($hashtoidentity_index_string, true);
@@ -605,7 +607,8 @@ final class entity
 			}
 			else if ($action == "COMMITFIRST" || $action == "COMMITUPDATE" || $action == "COMMITMERGE")
 			{
-				$rawdatafile_path = "{$basefolder}/{$datasink_realm}/entity/{$datasink_entitytype}-entity/{$entity_specific_hash}/{$entity_specific_hash}_data.raw";
+				$sep = DIRECTORY_SEPARATOR;
+				$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$entity_specific_hash}{$sep}{$entity_specific_hash}_data.raw";
 				filesystem::createcontainingfolderforfilepathifnotexists($rawdatafile_path);
 				
 				$file_result = file_put_contents($rawdatafile_path, $rawdata);
