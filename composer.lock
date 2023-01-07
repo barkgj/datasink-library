@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "047c7ae5d3ae499e055a3f93587a45cf",
+    "packages": [
+        {
+            "name": "barkgj/functions-library",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barkgj/functions-library.git",
+                "reference": "f275639567343fc8e1dfc452ef8397f0b25535e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barkgj/functions-library/zipball/f275639567343fc8e1dfc452ef8397f0b25535e6",
+                "reference": "f275639567343fc8e1dfc452ef8397f0b25535e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "barkgj\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Set of basic functions used by other barkgj projects",
+            "support": {
+                "issues": "https://github.com/barkgj/functions-library/issues",
+                "source": "https://github.com/barkgj/functions-library/tree/main"
+            },
+            "time": "2023-01-07T19:14:45+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "barkgj/functions-library": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.4"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "barkgj/datasink-library",
+  "description": "A PHP library to CRUD entities, urls and apis",
+  "require": {
+      "php": ">=7.4",
+      "barkgj/functions-library": "dev-main"
+  },
+  "autoload": {
+      "psr-4": {
+        "barkgj\\functions-library\\": "src/"
+      }
+    },
+  "config": {
+      "vendor-dir": "src/vendor"
+  }
+}
