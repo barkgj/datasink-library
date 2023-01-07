@@ -183,7 +183,10 @@ final class entity
 		}
 		else
 		{
-			$result = false;
+			$result = array
+			(
+				"identityfield" => "id",
+			);
 		}
 		
 		return $result;
