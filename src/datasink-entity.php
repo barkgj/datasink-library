@@ -483,7 +483,7 @@ final class entity
 		}
 		else 
 		{
-			if (array_key_exists($entity_specific_hash, $hashtoidentity_index["hashes"]))
+			if ($hashtoidentity_index != null && array_key_exists($entity_specific_hash, $hashtoidentity_index["hashes"]))
 			{
 				if (false)
 				{
