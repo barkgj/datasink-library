@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barkgj/functions-library.git",
-                "reference": "14fc3959459bdda653cf53144e09ced7f7b9c14c"
+                "reference": "d936d362461df1155241728735d9ba4870193af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barkgj/functions-library/zipball/14fc3959459bdda653cf53144e09ced7f7b9c14c",
-                "reference": "14fc3959459bdda653cf53144e09ced7f7b9c14c",
+                "url": "https://api.github.com/repos/barkgj/functions-library/zipball/d936d362461df1155241728735d9ba4870193af8",
+                "reference": "d936d362461df1155241728735d9ba4870193af8",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
                 "issues": "https://github.com/barkgj/functions-library/issues",
                 "source": "https://github.com/barkgj/functions-library/tree/main"
             },
-            "time": "2023-01-07T22:20:58+00:00"
+            "time": "2023-01-08T11:32:35+00:00"
         }
     ],
     "packages-dev": [],
