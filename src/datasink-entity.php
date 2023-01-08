@@ -198,6 +198,34 @@ final class entity
 		return $result;
 	}
 
+	public static function entityexists($args)
+	{
+		$result = array();
+		
+		$datasink_realm = $args["datasink_realm"];
+		if ($datasink_realm == "")
+		{
+			functions::throw_nack("entity::getentitymetadataraw; datasink_realm not specified");
+		}
+
+		$datasink_entitytype = $args["datasink_entitytype"];
+		if ($datasink_entitytype == "") { functions::throw_nack("datasink_entitytype not set"); }
+		
+		$entitymeta = entity::getentitymeta($datasink_entitytype);
+		if ($entitymeta == false) { functions::throw_nack("entitytype not supported (1); $datasink_entitytype"); }
+		
+		$identity = $args["identity"];
+		if (!isset($identity)) { functions::throw_nack("entity::getentitymetadataraw; identity not set"); }
+		
+		$hash = md5($identity);
+		
+		$basefolder = entity::getbasefolder();
+		$sep = DIRECTORY_SEPARATOR;
+		$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
+		$result = file_exists($rawdatafile_path);
+		return $result;
+	}
+
 	public static function getentitymetadataraw($args)
 	{
 		$result = array();
