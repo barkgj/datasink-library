@@ -190,11 +190,12 @@ final class entity
 		}
 		
 		return $result;
-	}
+	} 
+	
 
 	public static function getbasefolder()
 	{
-		$result = functions::getsitedatafolder() . DIRECTORY_SEPARATOR . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
+		$result = functions::getsitedatafolder() . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
 		return $result;
 	}
 
@@ -203,17 +204,17 @@ final class entity
 		$datasink_realm = $args["datasink_realm"];
 		if ($datasink_realm == "")
 		{
-			functions::throw_nack("entityexists; datasink_realm not specified");
+			functions::throw_nack("debugentity; datasink_realm not specified");
 		}
 
 		$datasink_entitytype = $args["datasink_entitytype"];
-		if ($datasink_entitytype == "") { functions::throw_nack("entityexists; datasink_entitytype not set"); }
+		if ($datasink_entitytype == "") { functions::throw_nack("debugentity; datasink_entitytype not set"); }
 		
 		$entitymeta = entity::getentitymeta($datasink_entitytype);
-		if ($entitymeta == false) { functions::throw_nack("entityexists; entitytype not supported (1); $datasink_entitytype"); }
+		if ($entitymeta == false) { functions::throw_nack("debugentity; entitytype not supported (1); $datasink_entitytype"); }
 		
 		$id = $args["id"];
-		if (!isset($id)) { functions::throw_nack("entityexists; id not set"); }
+		if (!isset($id)) { functions::throw_nack("debugentity; id not set"); }
 		
 		$hash = md5($id);
 		
