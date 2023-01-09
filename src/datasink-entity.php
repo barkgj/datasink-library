@@ -427,9 +427,7 @@ final class entity
 	{
 		$datasink_invokedbytaskid = $args["datasink_invokedbytaskid"];
 		$datasink_invokedbytaskinstanceid = $args["datasink_invokedbytaskinstanceid"];
-		if ($datasink_invokedbytaskid == "") { functions::throw_nack("entity::storeentitydata; datasink_invokedbytaskid not set"); }
-		if ($datasink_invokedbytaskinstanceid == "") { functions::throw_nack("entity::storeentitydata; datasink_invokedbytaskinstanceid not set"); }
-		
+
 		$datasink_realm = $args["datasink_realm"];
 		if ($datasink_realm == "") { functions::throw_nack("entity::storeentitydata; datasink_realm not set"); }
 
@@ -500,10 +498,6 @@ final class entity
 		$entity_specific_hash = md5($identityfield_value);
 		
 		// handle MERGE for existing entities
-		
-		
-		
-		
 		
 		//
 		$action = false;
