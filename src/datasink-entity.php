@@ -275,7 +275,7 @@ final class entity
 		$entitymeta = entity::getentitymeta($datasink_entitytype);
 		if ($entitymeta == false) { functions::throw_nack("entitytype not supported (1); $datasink_entitytype"); }
 		
-		$identity = $args["identity"];
+		$identity = $args["id"];
 		if (!isset($identity)) { functions::throw_nack("entity::getentitymetadataraw; identity not set"); }
 		
 		$hash = md5($identity);
@@ -316,8 +316,8 @@ final class entity
 			$datasink_include_meta = false;
 		}
 		
-		$entitymeta = entity::getentitymeta($datasink_entitytype);
-		$identityfield = $entitymeta["identityfield"];
+		//$entitymeta = entity::getentitymeta($datasink_entitytype);
+		//$identityfield = $entitymeta["identityfield"];
 		
 		$basefolder = entity::getbasefolder();
 		$sep = DIRECTORY_SEPARATOR;
@@ -341,31 +341,35 @@ final class entity
 			}
 		}
 		
-		$order_keys_by = $args["order_keys_by"];
-		if (isset($order_keys_by))
+		/*
+		if (isset($args["order_keys_by"]))
 		{
-			if (false)
+			$order_keys_by = $args["order_keys_by"];
+			if (isset($order_keys_by))
 			{
-				//
-			}
-			else if ($order_keys_by == "strlen")
-			{
-				$keys = array_map('strlen', array_keys($result));
-				array_multisort($keys, SORT_DESC, $result);
-			}
-			else
-			{
-				functions::throw_nack("unsupported; order_keys_by; $order_keys_by");
+				if (false)
+				{
+					//
+				}
+				else if ($order_keys_by == "strlen")
+				{
+					$keys = array_map('strlen', array_keys($result));
+					array_multisort($keys, SORT_DESC, $result);
+				}
+				else
+				{
+					functions::throw_nack("unsupported; order_keys_by; $order_keys_by");
+				}
 			}
 		}
+		*/
 			
 		return $result;
 	}
 
+	/*
 	public static function queryentities($args)
 	{
-		$datasink_realm = $args["datasink_realm"];
-		// fallback for now, should become a required input param
 		$datasink_realm = $args["datasink_realm"];
 		if ($datasink_realm == "")
 		{
@@ -373,8 +377,8 @@ final class entity
 		}
 
 		$datasink_entitytype = $args["datasink_entitytype"];
-		$entitymeta = entity::getentitymeta($datasink_entitytype);
-		$identityfield = $entitymeta["identityfield"];
+
+
 		
 		$basefolder = entity::getbasefolder();
 		$sep = DIRECTORY_SEPARATOR;
@@ -389,7 +393,6 @@ final class entity
 		
 		foreach ($hashtoidentity_index["hashes"] as $hash => $identityfield_value)
 		{
-			$pieces = array();
 			$identity = $identityfield_value;
 			
 			$shouldinclude = false;
@@ -422,6 +425,7 @@ final class entity
 		
 		return $result;
 	}
+	*/
 
 	public static function storeentitydata($args)
 	{
