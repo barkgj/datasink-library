@@ -286,7 +286,7 @@ final class entity
 
 		$data_string = file_get_contents($rawdatafile_path);
 		
-		if ($args["output"] == "rawstring")
+		if (isset($args["output"]) && $args["output"] == "rawstring")
 		{
 			$result = $data_string;
 		}
