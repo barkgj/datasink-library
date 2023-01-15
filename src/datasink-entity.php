@@ -343,7 +343,7 @@ final class entity
 				(
 					"datasink_realm" => $datasink_realm,
 					"datasink_entitytype" => $datasink_entitytype,
-					"identity" => $identityfield_value
+					"id" => $identityfield_value
 				);
 
 				$meta = entity::getentitymetadataraw($getentitymetadatarawargs);
@@ -645,7 +645,7 @@ final class entity
 				(
 					"datasink_realm" => $datasink_realm,
 					"datasink_entitytype" => $datasink_entitytype,
-					"identity" => $identityfield_value
+					"id" => $identityfield_value
 				);
 				$existing_metadata = entity::getentitymetadataraw($existing_args);
 				foreach ($existing_metadata as $existing_key => $existing_value)
