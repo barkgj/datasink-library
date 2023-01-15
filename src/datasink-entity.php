@@ -339,11 +339,15 @@ final class entity
 		{
 			if ($datasink_include_meta == true)
 			{
-				$sep = DIRECTORY_SEPARATOR;
-				$rawdatafile_path = "{$basefolder}{$sep}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
-				$data_string = file_get_contents($rawdatafile_path);
-				$data = json_decode($data_string, true);
-				$result[$identityfield_value] = $data;
+				$getentitymetadatarawargs = array
+				(
+					"datasink_realm" => $datasink_realm,
+					"datasink_entitytype" => $datasink_entitytype,
+					"identity" => $identityfield_value
+				);
+
+				$meta = entity::getentitymetadataraw($getentitymetadatarawargs);
+				$result[$identityfield_value] = $meta;
 			}
 			else
 			{
