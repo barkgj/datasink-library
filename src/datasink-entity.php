@@ -192,9 +192,20 @@ final class entity
 		return $result;
 	} 
 	
-	public static function getbasefolder()
+	public static function getbasefolder($ensuretrailingdirectoryseperator)
 	{
-		$result = functions::getsitedatafolder() . DIRECTORY_SEPARATOR . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
+		$result = functions::getsitedatafolder(true) . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
+
+		$sep = DIRECTORY_SEPARATOR;
+		if ($ensuretrailingdirectoryseperator)
+		{
+			$result = rtrim($result, $sep) . $sep;
+		}
+		else
+		{
+			$result = rtrim($result, $sep);
+		}
+
 		return $result;
 	}
 
@@ -217,7 +228,7 @@ final class entity
 		
 		$hash = md5($id);
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 		$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
 		$exists = file_exists($rawdatafile_path);
@@ -251,7 +262,7 @@ final class entity
 		
 		$hash = md5($id);
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 		$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
 		$result = file_exists($rawdatafile_path);
@@ -279,7 +290,7 @@ final class entity
 		
 		$hash = md5($identity);
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 		$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
 
@@ -318,7 +329,7 @@ final class entity
 		//$entitymeta = entity::getentitymeta($datasink_entitytype);
 		//$identityfield = $entitymeta["identityfield"];
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
 		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
@@ -379,7 +390,7 @@ final class entity
 
 
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
 		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
@@ -442,7 +453,7 @@ final class entity
 		$datasink_alreadyfoundbehaviour = $args["datasink_alreadyfoundbehaviour"];
 		$datasink_accoladesfoundbehaviour = $args["datasink_accoladesfoundbehaviour"];
 		
-		$basefolder = entity::getbasefolder();
+		$basefolder = entity::getbasefolder(true);
 
 		//
 			
