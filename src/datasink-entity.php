@@ -347,6 +347,7 @@ final class entity
 				);
 
 				$meta = entity::getentitymetadataraw($getentitymetadatarawargs);
+				//
 				$result[$identityfield_value] = $meta;
 			}
 			else
