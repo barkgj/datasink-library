@@ -192,10 +192,9 @@ final class entity
 		return $result;
 	} 
 	
-
 	public static function getbasefolder()
 	{
-		$result = functions::getsitedatafolder() . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
+		$result = functions::getsitedatafolder() . DIRECTORY_SEPARATOR . "datasink" . DIRECTORY_SEPARATOR . "entity" . DIRECTORY_SEPARATOR;
 		return $result;
 	}
 
