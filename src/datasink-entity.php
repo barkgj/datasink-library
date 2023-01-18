@@ -286,7 +286,7 @@ final class entity
 		if ($entitymeta == false) { functions::throw_nack("entitytype not supported (1); $datasink_entitytype"); }
 		
 		$identity = $args["id"];
-		if (!isset($identity)) { functions::throw_nack("entity::getentitymetadataraw; identity not set"); }
+		if (!isset($identity)) { functions::throw_nack("entity::getentitymetadataraw; id not set"); }
 		
 		$hash = md5($identity);
 		
