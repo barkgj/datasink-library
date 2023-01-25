@@ -2,6 +2,8 @@
 
 namespace barkgj\datasink;
 
+require_once __DIR__ . '/vendor/barkgj/functions-library/src/functions.php';
+
 use barkgj\functions;
 use barkgj\functions\filesystem;
 
@@ -382,66 +384,6 @@ final class entity
 		return $result;
 	}
 
-	/*
-	public static function queryentities($args)
-	{
-		$datasink_realm = $args["datasink_realm"];
-		if ($datasink_realm == "")
-		{
-			functions::throw_nack("entity::queryentities; datasink_realm not specified");
-		}
-
-		$datasink_entitytype = $args["datasink_entitytype"];
-
-
-		
-		$basefolder = entity::getbasefolder(true);
-		$sep = DIRECTORY_SEPARATOR;
-		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
-		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
-		$hashtoidentity_index = json_decode($hashtoidentity_index_string, true);
-		
-		$query = $args["query"];
-		$query_lower = strtolower($query);
-		
-		$result["count"] = 0;
-		
-		foreach ($hashtoidentity_index["hashes"] as $hash => $identityfield_value)
-		{
-			$identity = $identityfield_value;
-			
-			$shouldinclude = false;
-			if ($query_lower == "")
-			{
-				$shouldinclude = true;
-			}
-			else if ($query_lower != "")
-			{
-				$sep = DIRECTORY_SEPARATOR;
-				$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
-				$data_string = file_get_contents($rawdatafile_path);
-				$data_string_lower = strtolower($data_string);
-				
-				if (functions::stringcontains($data_string_lower, $query_lower, false))
-				{
-					$shouldinclude = true;
-				}
-			}
-			
-			if ($shouldinclude)
-			{
-				$result["identities"][] = $identity;
-				$entry = json_decode($data_string, true);
-				$result["matches"][] = $entry;
-				$result["urls"][] = $entry["url"];
-				$result["count"]++;
-			}
-		}
-		
-		return $result;
-	}
-	*/
-
 	public static function storeentitydata($args)
 	{
 		$datasink_invokedbytaskid = $args["datasink_invokedbytaskid"];
@@ -819,4 +761,63 @@ final class entity
 		return $result;
 	}
 
+	/*
+	public static function queryentities($args)
+	{
+		$datasink_realm = $args["datasink_realm"];
+		if ($datasink_realm == "")
+		{
+			functions::throw_nack("entity::queryentities; datasink_realm not specified");
+		}
+
+		$datasink_entitytype = $args["datasink_entitytype"];
+
+
+		
+		$basefolder = entity::getbasefolder(true);
+		$sep = DIRECTORY_SEPARATOR;
+		$hashtoidentity_index_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$datasink_entitytype}_hashtoidentity_index.json";
+		$hashtoidentity_index_string = file_get_contents($hashtoidentity_index_path);
+		$hashtoidentity_index = json_decode($hashtoidentity_index_string, true);
+		
+		$query = $args["query"];
+		$query_lower = strtolower($query);
+		
+		$result["count"] = 0;
+		
+		foreach ($hashtoidentity_index["hashes"] as $hash => $identityfield_value)
+		{
+			$identity = $identityfield_value;
+			
+			$shouldinclude = false;
+			if ($query_lower == "")
+			{
+				$shouldinclude = true;
+			}
+			else if ($query_lower != "")
+			{
+				$sep = DIRECTORY_SEPARATOR;
+				$rawdatafile_path = "{$basefolder}{$datasink_realm}{$sep}entity{$sep}{$datasink_entitytype}-entity{$sep}{$hash}{$sep}{$hash}_data.raw";
+				$data_string = file_get_contents($rawdatafile_path);
+				$data_string_lower = strtolower($data_string);
+				
+				if (functions::stringcontains($data_string_lower, $query_lower, false))
+				{
+					$shouldinclude = true;
+				}
+			}
+			
+			if ($shouldinclude)
+			{
+				$result["identities"][] = $identity;
+				$entry = json_decode($data_string, true);
+				$result["matches"][] = $entry;
+				$result["urls"][] = $entry["url"];
+				$result["count"]++;
+			}
+		}
+		
+		return $result;
+	}
+	*/
 }
