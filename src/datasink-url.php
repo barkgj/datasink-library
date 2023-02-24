@@ -10,7 +10,7 @@ use barkgj\datasink\entity;
 
 final class url
 {
-	public static function brk_datasink_storeurldata($args)
+	public static function storeurldata($args)
 	{
 		$datasink_time = time();
 
@@ -183,7 +183,7 @@ final class url
 		if ($datasink_realm == "") { functions::throw_nack("brk_datasink_geturldata; datasink_realm not specified"); }
 		if ($datasink_url == "") { functions::throw_nack("datasink_url not specified"); }
 		$hostname = parse_url($datasink_url, PHP_URL_HOST);
-		$hostname = brk_domain_getdomainforhostname($hostname, "thrownack");
+		$hostname = functions::getdomainforhostname($hostname, "thrownack");
 		if ($hostname == "") { functions::throw_nack("hostname not specified"); }
 		if ($datasink_time == "") { functions::throw_nack("datasink_time not specified"); }
 		if ($datasink_return == "") { functions::throw_nack("datasink_return not specified"); }
@@ -197,43 +197,50 @@ final class url
 		
 		// 6
 		$history_index_path = "{$basefolder}{$datasink_realm}{$sep}url{$sep}{$hostname}{$sep}{$hash}{$sep}{$hash}_history_index.json";
-		$history_index_string = file_get_contents($history_index_path);
-		$history_index = json_decode($history_index_string, true);
-		$timestamps = $history_index["timestamps"];
-		
-		$foundinindex = false;
-		
-		if (false)
+		if (file_exists($history_index_path))
 		{
-			//
-		}
-		else if ($datasink_time == "MOST_RECENT")
-		{
-			if (count($timestamps) > 0)
+			$history_index_string = file_get_contents($history_index_path);
+			$history_index = json_decode($history_index_string, true);
+			$timestamps = $history_index["timestamps"];
+			
+			$foundinindex = false;
+			
+			if (false)
 			{
-				$datasink_time = end($timestamps);
-				$foundinindex = true;
+				//
+			}
+			else if ($datasink_time == "MOST_RECENT")
+			{
+				if (count($timestamps) > 0)
+				{
+					$datasink_time = end($timestamps);
+					$foundinindex = true;
+				}
+				else
+				{
+					$foundinindex = false;
+				}
+			}
+			else if (brk_stringstartswith($datasink_time, "TIMESTAMP:"))
+			{
+				$datasink_time = str_replace("TIMESTAMP:", "", $datasink_time);
+				$foundinindex = in_array($datasink_time, $timestamps);
 			}
 			else
 			{
-				$foundinindex = false;
+				functions::throw_nack("datasink_time not supported; $datasink_time");
 			}
-		}
-		else if (brk_stringstartswith($datasink_time, "TIMESTAMP:"))
-		{
-			$datasink_time = str_replace("TIMESTAMP:", "", $datasink_time);
-			$foundinindex = in_array($datasink_time, $timestamps);
 		}
 		else
 		{
-			functions::throw_nack("datasink_time not supported; $datasink_time");
+			$foundinindex = false;
 		}
 		
 		if ($foundinindex)
 		{
 			if (false)
 			{
-			//
+				//
 			}
 			else if ($datasink_return == "RAW")
 			{
