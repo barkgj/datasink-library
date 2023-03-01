@@ -10,6 +10,23 @@ use barkgj\datasink\entity;
 
 final class url
 {
+	public static function getbasefolder($ensuretrailingdirectoryseperator)
+	{
+		$result = functions::getsitedatafolder(true) . "datasink" . DIRECTORY_SEPARATOR . "url" . DIRECTORY_SEPARATOR;
+
+		$sep = DIRECTORY_SEPARATOR;
+		if ($ensuretrailingdirectoryseperator)
+		{
+			$result = rtrim($result, $sep) . $sep;
+		}
+		else
+		{
+			$result = rtrim($result, $sep);
+		}
+
+		return $result;
+	}
+
 	public static function storeurldata($args)
 	{
 		$datasink_time = time();
@@ -60,14 +77,24 @@ final class url
 
 		$hash = md5(serialize($datasink_url));
 
-		$basefolder = entity::getbasefolder(true);
+		$basefolder = url::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 
 		// 1
 		$hashtourl_index_path = "{$basefolder}{$datasink_realm}{$sep}url{$sep}{$hostname}{$sep}hashtourl_index.json";
-		brk_fs_createcontainingfolderforfilepathifnotexists($hashtourl_index_path);
-		$hashtourl_index_string = file_get_contents($hashtourl_index_path);
-		$hashtourl_index = json_decode($hashtourl_index_string, true);
+		filesystem::createcontainingfolderforfilepathifnotexists($hashtourl_index_path);
+		if (file_exists($hashtourl_index_path))
+		{
+			//
+			$hashtourl_index_string = file_get_contents($hashtourl_index_path);
+			$hashtourl_index = json_decode($hashtourl_index_string, true);
+		}
+		else
+		{
+			$hashtourl_index = array();
+			$hashtourl_index["hashes"] = array();
+		}
+		
 		if (!in_array($hash, $hashtourl_index["hashes"]))
 		{
 			$hashtourl_index["hashes"][$hash] = $datasink_url;
@@ -87,10 +114,19 @@ final class url
 		$history_index_path = "{$basefolder}{$datasink_realm}{$sep}url{$sep}{$hostname}{$sep}{$hash}{$sep}{$hash}_history_index.json";
 		
 		//create folder if needed
-		brk_fs_createcontainingfolderforfilepathifnotexists($history_index_path);
+		filesystem::createcontainingfolderforfilepathifnotexists($history_index_path);
 		
-		$history_index_string = file_get_contents($history_index_path);
-		$history_index = json_decode($history_index_string, true);
+		if (file_exists($history_index_path))
+		{
+			$history_index_string = file_get_contents($history_index_path);
+			$history_index = json_decode($history_index_string, true);	
+		}
+		else
+		{
+			$history_index = array();
+			$history_index["timestamps"] = array();
+		}
+
 		if (in_array($datasink_time, $history_index["timestamps"]))
 		{
 			functions::throw_nack("brk_datasink_storeurldata; timestamp already there? $history_index_path; $datasink_time");
@@ -154,7 +190,7 @@ final class url
 		
 		$hash = md5(serialize($datasink_url));
 		
-		$basefolder = entity::getbasefolder(true);
+		$basefolder = url::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 
 		// 5
@@ -188,7 +224,7 @@ final class url
 		if ($datasink_time == "") { functions::throw_nack("datasink_time not specified"); }
 		if ($datasink_return == "") { functions::throw_nack("datasink_return not specified"); }
 		
-		$basefolder = entity::getbasefolder(true);
+		$basefolder = url::getbasefolder(true);
 		$sep = DIRECTORY_SEPARATOR;
 
 		$datasink_parameters_prefix = "datasink_";
@@ -269,8 +305,6 @@ final class url
 				if (file_exists($metadatafile_path))
 				{
 					$metadata = file_get_contents($metadatafile_path);				
-					echo $metadata;
-					die();
 				}
 			}
 			else if ($datasink_return == "RAW_AND_META")
